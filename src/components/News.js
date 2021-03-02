@@ -5,8 +5,6 @@ import articles from '../articles';
 
 const News = () => {
   const [news, setNews] = useState(null);
-
-  console.log(articles);
   // `https://newsapi.org/v2/sources?category=technology&apiKey=${process.env.REACT_APP_NEWS_API}`
   useEffect(() => {
     // const fetchData = async () => {
@@ -26,13 +24,15 @@ const News = () => {
             <Card.Img variant='top' src={article.image} alt={article.title} />
             <Card.Body>
               <Card.Title>{article.title}</Card.Title>
-              <Card.Text className='text-muted'>
-                <p className='mb-0'>{article.publishedAt}</p>
-                <p className='mb-0'>Writter: {article.author}</p>
-                <p>Source: {article.urlToSource}</p>
+              <Card.Text className='text-muted mb-0'>
+                {article.publishedAt}
               </Card.Text>
-              <Card.Text className='text-muted'></Card.Text>
-              <Card.Text className='text-muted'></Card.Text>
+              <Card.Text className='text-muted mb-0'>
+                Writter: {article.author}
+              </Card.Text>
+              <Card.Text className='text-muted'>
+                Source: {article.urlToSource}
+              </Card.Text>
               <Card.Text>{article.description}</Card.Text>
               <div className='text-right'>
                 <a
