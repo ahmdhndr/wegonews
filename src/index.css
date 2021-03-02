@@ -16,11 +16,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.card {
+  box-shadow: 2px 0 15px rgba(43, 43, 43, 0.5);
+}
+
 .content {
   margin: 0 auto;
   max-width: 500px;
   overflow: hidden;
-  background: #829fd9;
   padding: 0 16px;
   min-height: calc(100vh - 60px);
 }

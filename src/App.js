@@ -17,7 +17,7 @@ function App() {
           Wegonews
         </a>
       </nav>
-      <main className='content'>
+      <main className='content bg-light'>
         <Navbar />
         <News />
       </main>
