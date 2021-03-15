@@ -4,20 +4,27 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Navbar from './components/Navbar'
 import News from './components/News'
 import BaseSkeleton from './components/BaseSkeleton'
+import { Alert } from 'react-bootstrap'
 
 function App() {
   const [news, setNews] = useState([])
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+
   useEffect(() => {
     setLoading(true)
     const getData = async () => {
-      const { data } = await axios.get(
-        `https://newsapi.org/v2/everything?q=technology&apiKey=${process.env.REACT_APP_NEWS_API}`
-      )
-      setNews(data.articles)
+      try {
+        const { data } = await axios.get(
+          `https://newsapi.org/v2/everything?q=technology&apiKey=${process.env.REACT_APP_NEWS_API}`
+        )
+        setNews(data.articles)
+      } catch (error) {
+        setError(error.response.data.message)
+      }
       setLoading(false)
     }
-    return getData()
+    getData()
   }, [setLoading])
 
   const getValue = (e) => {
@@ -25,14 +32,19 @@ function App() {
 
     setLoading(true)
     const getDataByCategory = async () => {
-      const { data } = await axios.get(
-        `https://newsapi.org/v2/everything?q=${val}&apiKey=${process.env.REACT_APP_NEWS_API}`
-      )
-      setNews(data.articles)
+      try {
+        const { data } = await axios.get(
+          `https://newsapi.org/v2/everything?q=${val}&apiKey=${process.env.REACT_APP_NEWS_API}`
+        )
+        setNews(data.articles)
+      } catch (error) {
+        setError(error.response.data.message)
+      }
       setLoading(false)
     }
-    return getDataByCategory()
+    getDataByCategory()
   }
+
   return (
     <div>
       <nav className='navbar navbar-dark bg-dark'>
@@ -49,6 +61,11 @@ function App() {
       </nav>
       <main className='content bg-light'>
         <Navbar onClick={(val) => getValue(val)} />
+        {error && (
+          <Alert variant='danger'>
+            <Alert.Heading>{error}</Alert.Heading>
+          </Alert>
+        )}
         {loading && <BaseSkeleton />}
         {!loading && <News news={news} />}
       </main>
